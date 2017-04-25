@@ -4,14 +4,17 @@ using System.Linq;
 using UnityEngine;
 
 public class GenerateColors : MonoBehaviour {
-
+    public string promptPath = "AudioClips/BColors/Clip";
+    public string genPath = "AudioClips/General/Clip";
     public static TextMesh colorText;
 
+    public AudioSource beniAudio;
     Quaternion colorRotation;
     Vector2 colorPosition1, colorPosition2, colorPosition3;
     Vector2[] colorPositions;
-    string[] colors = new string[4] { "Blue", "Green", "Yellow", "Red" };  //Initializes color array
+    string[] colors = new string[5] { "Blue", "Green", "Yellow", "Red", "Purple" };  //Initializes color array
     string[] shuffledColors;
+    string chosenColor;
     public int roundsToPlay;
     public static int rounds = 0;
     bool levelOver = false;
@@ -19,7 +22,11 @@ public class GenerateColors : MonoBehaviour {
     float timestamp;
 
     // Use this for initialization
-    void Start () {
+    IEnumerator Start () {
+        yield return new WaitForSeconds(4.5f);
+        beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
+        //beniAudio.clip = (AudioClip)Resources.Load(path + "Red");
+        beniAudio.Play();
         timestamp = promptAfterSeconds;
         colorText = GameObject.FindGameObjectWithTag("GuessChar").GetComponent<TextMesh>(); //Gets reference to color TextMesh
 
@@ -52,6 +59,7 @@ public class GenerateColors : MonoBehaviour {
         {
             Debug.Log("No click after " + promptAfterSeconds + " seconds. "   //Beni will prompt user here.
                 + "Inset Beni voice prompt here.");
+            beniAudio.Play();
             timestamp = Time.time + promptAfterSeconds;
         }
     }
@@ -61,7 +69,10 @@ public class GenerateColors : MonoBehaviour {
         shuffledColors = colors.OrderBy(n => System.Guid.NewGuid()).ToArray();   //Shuffles the color array
 
         int idx = (int) Random.Range(1.0f, 3.0f);
-        colorText.text = shuffledColors[idx];    //Picks a random color from the chosen collors to act as the correct color choice
+        colorText.text = shuffledColors[idx];    //Picks a random color from the chosen colors to act as the correct color choice
+        chosenColor = shuffledColors[idx];
+        beniAudio.clip = (AudioClip) Resources.Load(promptPath + chosenColor);
+        beniAudio.Play();
         
         for(int i = 0; i<3; ++i) {       
             
@@ -76,8 +87,14 @@ public class GenerateColors : MonoBehaviour {
         {       
             if(colors.Contains(obj.tag))          //Destroy every object with a tag that is a color
             {
+                Debug.Log(obj.GetType());
                 Destroy(obj);
             }
         }
+    }
+
+    void playColorPrompt() {
+        beniAudio.clip = (AudioClip)Resources.Load("");
+
     }
 }

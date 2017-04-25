@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SelectChar : MonoBehaviour {
+
+    AudioSource beniAudio;
     TextMesh character;
     Renderer answer1, answer2, answer3, answer4, answer5;
     Renderer[] answersRender;
@@ -11,6 +13,8 @@ public class SelectChar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
+
         character = gameObject.GetComponent<TextMesh>();
         numbers = GenerateCharacters.numbers;              
 
@@ -35,14 +39,21 @@ public class SelectChar : MonoBehaviour {
 
     }
 
-    void OnMouseDown() {
+    IEnumerator OnMouseDown() {
         //Debug.Log(character.text + " selected");
-        validateNums();
+        if(validateNums())
+        {
+            yield return new WaitForSeconds(4.0f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(4.5f);
+        }
         
 
     }
 
-    void validateNums() { 
+    bool validateNums() { 
         try
         {
             if (Int32.Parse(character.text) == numbers[GenerateCharacters.currentNumIdx])
@@ -52,6 +63,9 @@ public class SelectChar : MonoBehaviour {
                 GenerateCharacters.currentNumIdx += 1;                          //Increment currentNumIdx  
 
                 Debug.Log(character.text + " is correct!");
+                beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Correct");
+                beniAudio.Play();              
+
 
                 if (GenerateCharacters.currentNumIdx == 5)
                 {
@@ -59,20 +73,23 @@ public class SelectChar : MonoBehaviour {
                     Debug.Log("Yay you won!");
 
                 }
+
+                return true;
             }
-            else {
-                Debug.Log("Sorry but " + character.text + " does not come next");  //Answer incorrect                
-            }
+
+            beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Oops");
+            beniAudio.Play();
+            return false;   //Guess is incorrect
 
         }
         catch(FormatException e)
         {
-            validateLetters();
+            return validateLetters();
         }        
 
     }
 
-    void validateLetters() {
+    bool validateLetters() {
         if(character.text == GenerateCharacters.numToString
             (numbers[GenerateCharacters.currentNumIdx], true)) {
 
@@ -80,6 +97,8 @@ public class SelectChar : MonoBehaviour {
             GenerateCharacters.currentNumIdx += 1;                          //Increment currentNumIdx 
 
             Debug.Log(character.text + " is correct!");
+            beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Correct");
+            beniAudio.Play();
 
             if (GenerateCharacters.currentNumIdx == 5)
             {
@@ -88,10 +107,13 @@ public class SelectChar : MonoBehaviour {
 
             }
 
+            return true;
+
         }
-        else {
-            Debug.Log("Sorry but " + character.text + " does not come next");  //Answer incorrect            
-        }
+
+        beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Oops");
+        beniAudio.Play();
+        return false;  //Guess is incorrect
     }
     
 }

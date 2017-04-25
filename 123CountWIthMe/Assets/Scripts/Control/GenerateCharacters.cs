@@ -6,19 +6,25 @@ using UnityEngine.UI;
 
 public class GenerateCharacters : MonoBehaviour {
 
+    public AudioSource beniAudio;
     GameObject[] charObjects;
     TextMesh answer1, answer2, answer3, answer4, answer5;
     TextMesh[] answers;
     public bool genNumbers, genLetters;
     public static int[] numbers;
     public static int currentNumIdx;
+    public static string genPath = "AudioClips/General/Clip";
+    public static string promptPathL = "AudioClips/BLetters/Clip";
+    public static string promptPathN = "AudioClips/BNumbers/Clip";
     int[] shuffledNums;     
     int randSeed;
     public float promptAfterSeconds;
     float timestamp;      
 
 	// Use this for initialization
-	void Start () {              
+	void Start () {        
+        beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
+
         charObjects = GameObject.FindGameObjectsWithTag("GuessChar");
         timestamp = promptAfterSeconds;
 
@@ -63,6 +69,16 @@ public class GenerateCharacters : MonoBehaviour {
 
         if (Time.time >= timestamp)
         {
+            if(genLetters)
+            {
+                beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.promptPathL + "Idle");  //Letters idle prompt
+                beniAudio.Play();
+            }
+            else if(genNumbers)
+            {
+                beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.promptPathN + "Idle");  //Numbers idle prompt
+                beniAudio.Play();
+            }
             Debug.Log("No click after " + promptAfterSeconds + " seconds. " //Beni will prompt user here.
                 + "Inset Beni voice prompt here.");            
             timestamp = Time.time + promptAfterSeconds;

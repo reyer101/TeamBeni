@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GenerateColors : MonoBehaviour {
-    public string promptPath = "AudioClips/BColors/Clip";
-    public string genPath = "AudioClips/General/Clip";
+public class GenerateColors : MonoBehaviour {       
     public static TextMesh colorText;
 
     public AudioSource beniAudio;
@@ -13,8 +11,12 @@ public class GenerateColors : MonoBehaviour {
     Vector2 colorPosition1, colorPosition2, colorPosition3;
     Vector2[] colorPositions;
     string[] colors = new string[5] { "Blue", "Green", "Yellow", "Red", "Purple" };  //Initializes color array
-    string[] shuffledColors;
-    string chosenColor;
+    string[] colorPaths = new string[5] { Constants.bluePath, Constants.greenPath,
+        Constants.yellowPath, Constants.redPath, Constants.purplePath };  //Initializes array of string paths to different 
+    string[] shuffledColorPaths;
+    int[] objNums = new int[3] { 1, 2, 3 }; //color folders
+    int[] shuffledObjNums;
+    string chosenColor, prevColor;
     public int roundsToPlay;
     public static int rounds = 0;
     bool levelOver = false;
@@ -23,10 +25,11 @@ public class GenerateColors : MonoBehaviour {
 
     // Use this for initialization
     IEnumerator Start () {
-        yield return new WaitForSeconds(4.5f);
+        prevColor = "";   //Initializes previous color to the empty string since the level is just starting.
         beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
-        //beniAudio.clip = (AudioClip)Resources.Load(path + "Red");
+        yield return new WaitForSeconds(4.5f);       
         beniAudio.Play();
+
         timestamp = promptAfterSeconds;
         colorText = GameObject.FindGameObjectWithTag("GuessChar").GetComponent<TextMesh>(); //Gets reference to color TextMesh
 
@@ -66,19 +69,30 @@ public class GenerateColors : MonoBehaviour {
 
     public void generate() {
         deleteColors();  //Deletes all previous color instances
-        shuffledColors = colors.OrderBy(n => System.Guid.NewGuid()).ToArray();   //Shuffles the color array
+        shuffledColorPaths = colorPaths.OrderBy(n => System.Guid.NewGuid()).ToArray();   //Shuffles the color path array
+        shuffledObjNums = objNums.OrderBy(n => System.Guid.NewGuid()).ToArray();  //Shuffles the object numbers array
 
-        int idx = (int) Random.Range(1.0f, 3.0f);
-        colorText.text = shuffledColors[idx];    //Picks a random color from the chosen colors to act as the correct color choice
-        chosenColor = shuffledColors[idx];
-        beniAudio.clip = (AudioClip) Resources.Load(promptPath + chosenColor);
-        beniAudio.Play();
+        int objNum = (int) Random.Range(1.0f, 3.0f);  //Picks random number bettween 1 and 3 to decide which colored object is chosen
+        int chosenIdx = (int)Random.Range(1.0f, 3.0f); //Random idx for chosen color                
         
         for(int i = 0; i<3; ++i) {       
-            
-            Instantiate(Resources.Load(shuffledColors[i]), colorPositions[i], colorRotation); //Instantiates the colored objects
+            if(i == chosenIdx) {
+                GameObject obj = (GameObject) Resources.Load(shuffledColorPaths[i] + shuffledObjNums[i]);
+                chosenColor = obj.tag;
+
+                if(chosenColor == prevColor) {   //If the chosen color is the same as the previous color, generate again.
+                    generate();
+                    return;
+                }
+                colorText.text = chosenColor;
+                beniAudio.clip = (AudioClip) Resources.Load(Constants.promptPath + chosenColor);
+                prevColor = chosenColor;
+            }
+            Instantiate(Resources.Load(shuffledColorPaths[i] + shuffledObjNums[i]), colorPositions[i], colorRotation); 
+                                                                      //Instantiates the colored objects
         }                                                             //with previously determined positions and rotation.
 
+        beniAudio.Play();
     }
 
     void deleteColors() {
@@ -91,10 +105,5 @@ public class GenerateColors : MonoBehaviour {
                 Destroy(obj);
             }
         }
-    }
-
-    void playColorPrompt() {
-        beniAudio.clip = (AudioClip)Resources.Load("");
-
-    }
+    }    
 }

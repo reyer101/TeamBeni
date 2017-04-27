@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ColorsEasy.unity
+- path: Assets/Scenes/NumbersEasy.unity
   isLoaded: 1
   isActive: 1

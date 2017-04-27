@@ -30,7 +30,7 @@ public class SelectColor : MonoBehaviour {
         else
         {
             yield return new WaitForSeconds(4.5f);
-            beniAudio.clip = (AudioClip) Resources.Load(generator.promptPath + correctColor);
+            beniAudio.clip = (AudioClip) Resources.Load(Constants.promptPath + correctColor);
             beniAudio.Play();       //Loads and plays color prompt after incorrect clip is played
         }
     }
@@ -40,14 +40,14 @@ public class SelectColor : MonoBehaviour {
         if (correctColor == color)
         {
             Debug.Log("You are correct!"); //Beni would tell the user that their choice is correct.
-            beniAudio.clip = (AudioClip) Resources.Load(generator.genPath + "Correct");
+            beniAudio.clip = (AudioClip) Resources.Load(Constants.genPath + "Correct");
             beniAudio.Play();               //Loads and plays correct clip
              
             return true;           
         }
        
         Debug.Log("Sorry, but this isn't " + correctColor); //Beni would tell the user that their choice is incorrect.
-        beniAudio.clip = (AudioClip)Resources.Load(generator.genPath + "Oops");
+        beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Oops");
         beniAudio.Play();                    //Loads and plays incorrect clip
         return false;
     }

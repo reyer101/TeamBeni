@@ -21,14 +21,14 @@ public class GenerateColors : MonoBehaviour {
     public static int rounds = 0;
     bool levelOver = false;
     public float promptAfterSeconds;
-    float timestamp;
+    float timestamp;    
 
     // Use this for initialization
     IEnumerator Start () {
         prevColor = "";   //Initializes previous color to the empty string since the level is just starting.
         beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
         yield return new WaitForSeconds(4.5f);       
-        beniAudio.Play();
+        beniAudio.Play();        
 
         timestamp = promptAfterSeconds;
         colorText = GameObject.FindGameObjectWithTag("GuessChar").GetComponent<TextMesh>(); //Gets reference to color TextMesh

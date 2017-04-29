@@ -13,4 +13,5 @@ public static class Constants {
     public static string yellowPath = "YellowItems/";
     public static string promptPathL = "AudioClips/BLetters/Clip";
     public static string promptPathN = "AudioClips/BNumbers/Clip";
+    public static string scubaPath = "ScubaFrames/";
 }

@@ -9,6 +9,7 @@ public class ScubaAnimator : MonoBehaviour {
     Quaternion beniRotation;
     Vector2 beniPosition;
     int animIndex = 1;
+    public int imageFrames;
     int totalFrames = 0;
 
 	// Use this for initialization
@@ -21,7 +22,7 @@ public class ScubaAnimator : MonoBehaviour {
 
     void Update() {        
         
-        if(totalFrames % 9 == 0)
+        if(totalFrames % imageFrames == 0)
         {
             switchFrame();
         }

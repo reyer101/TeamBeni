@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/NumbersEasy.unity
+- path: Assets/Scenes/NumbersAdvanced.unity
   isLoaded: 1
   isActive: 1

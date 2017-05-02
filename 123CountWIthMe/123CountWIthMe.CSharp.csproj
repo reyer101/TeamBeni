@@ -76,8 +76,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Control\GenerateCharacters.cs" />
     <Compile Include="Assets\Scripts\Control\GenerateColors.cs" />
+    <Compile Include="Assets\Scripts\Control\GenerateEquation.cs" />
     <Compile Include="Assets\Scripts\Control\SelectChar.cs" />
     <Compile Include="Assets\Scripts\Control\SelectColor.cs" />
+    <Compile Include="Assets\Scripts\Control\SelectSum.cs" />
     <Compile Include="Assets\Scripts\Utils\Constants.cs" />
     <Compile Include="Assets\Scripts\Utils\GameUtils.cs" />
     <Compile Include="Assets\Scripts\Utils\ScubaAnimator.cs" />

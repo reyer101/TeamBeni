@@ -5,26 +5,18 @@ using UnityEngine;
 public class SelectSum : MonoBehaviour {
 
     TextMesh selection;
-    GenerateEquation generator;
-    int answer, rounds;
+    GenerateEquation generator;    
     public int roundsToPlay;
 
 	// Use this for initialization
-	void Start () {
-        rounds = 1;
+	void Start () {        
         generator = GameObject.FindGameObjectWithTag("GameController").GetComponent<GenerateEquation>();
         selection = gameObject.GetComponent<TextMesh>();
 		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        answer = GenerateEquation.ans;      
-		
-	}
+	}	
 
     void OnMouseDown() {
-        if (selection.text == answer.ToString())
+        if (selection.text == GenerateEquation.ans.ToString())
         {
             //Correct audio here
             generator.makeEquation();

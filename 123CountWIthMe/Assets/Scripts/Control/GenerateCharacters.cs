@@ -23,7 +23,7 @@ public class GenerateCharacters : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {        
-        beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
 
         charObjects = GameObject.FindGameObjectsWithTag("GuessChar");
         timestamp = promptAfterSeconds;

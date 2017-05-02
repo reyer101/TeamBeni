@@ -59,31 +59,18 @@ public class GenerateEquation : MonoBehaviour {
 
         answerBank[0] = ans;           //Ensures the actual answer is in the answer bank
 
-        for(int i = 1; i < 4; ++i)
+        if(ans < 7)
         {
-            if((int)Random.Range(0.0f, 1.0f) == 0)
-            {
-                temp = Random.Range(ans / 2, ans - 1);
-                
-                while(answerBank.Contains(temp))
-                {
-                    temp = Random.Range(ans + 1, ans + 5);
-                }
-
-                answerBank[i] = temp; 
-            }
-            else
-            {
-                temp = Random.Range(ans + 1, (ans / 2) + ans);
-
-                while (answerBank.Contains(temp))
-                {
-                    temp = Random.Range(ans + 1, ans + 5);
-                }
-
-                answerBank[i] = temp;
-            }            
+            answerBank[1] = ans - 1;
+            answerBank[2] = ans + 1;
+            answerBank[3] = ans + 2;
         }
+        else
+        {
+            answerBank[1] = ans - 2;
+            answerBank[2] = ans + 1;
+            answerBank[3] = ans + 2;
+        }        
         
         shuffledAnswers = answerBank.OrderBy(n => System.Guid.NewGuid()).ToArray();
 

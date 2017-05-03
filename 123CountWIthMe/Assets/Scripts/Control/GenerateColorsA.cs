@@ -12,12 +12,15 @@ public class GenerateColorsA : MonoBehaviour {
     GameObject[] primaryColors = new GameObject[3];
     GameObject secondaryColor;
     public static SecondaryColor color;
-    string chosenColor, prevColor;
+    public static string chosenColor;
+    string prevColor;    
     int rounds;
+    public static HashSet<string> 
+        selectedColors = new HashSet<string>();
     public int roundsToPlay;
 
 	// Use this for initialization
-	void Start () {
+	void Start () {        
         prevColor = "";
         primaryPositions = new Vector2[3];
         secondaryPosition = GameObject.FindGameObjectWithTag("Secondary").transform.position;
@@ -30,8 +33,7 @@ public class GenerateColorsA : MonoBehaviour {
         for(int i = 0; i < 3; ++i)
         {
             primaryPositions[i] = primaryColors[i].transform.position;
-        }
-
+        }        
         makeColors();      
 
     }
@@ -49,7 +51,7 @@ public class GenerateColorsA : MonoBehaviour {
         }
     }
 
-    void makeColors() {
+    public void makeColors() {
         ++rounds;
         deleteSecondary();
         shuffleColors();

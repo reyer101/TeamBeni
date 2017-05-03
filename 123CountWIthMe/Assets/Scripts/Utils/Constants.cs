@@ -19,5 +19,5 @@ public static class Constants {
     public static char[] consonants = new char[21] { 'b', 'c', 'd', 'f', 'g',
         'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' };
     public static string[] words = new string[15] {"ball", "bat", "bear", "boat",
-        "car", "cat", "dog", "frog", "hat", "rat", "shoe", "sock", "star", "sun", "tree" };
+        "car", "cat", "dog", "frog", "hat", "rat", "shoe", "sock", "star", "sun", "tree" };    
 }

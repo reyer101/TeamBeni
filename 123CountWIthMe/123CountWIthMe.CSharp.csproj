@@ -76,10 +76,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Control\GenerateCharacters.cs" />
     <Compile Include="Assets\Scripts\Control\GenerateColors.cs" />
+    <Compile Include="Assets\Scripts\Control\GenerateColorsA.cs" />
     <Compile Include="Assets\Scripts\Control\GenerateEquation.cs" />
     <Compile Include="Assets\Scripts\Control\GenerateWord.cs" />
     <Compile Include="Assets\Scripts\Control\SelectChar.cs" />
     <Compile Include="Assets\Scripts\Control\SelectColor.cs" />
+    <Compile Include="Assets\Scripts\Control\SelectColorA.cs" />
     <Compile Include="Assets\Scripts\Control\SelectLetter.cs" />
     <Compile Include="Assets\Scripts\Control\SelectSum.cs" />
     <Compile Include="Assets\Scripts\Models\SecondaryColor.cs" />

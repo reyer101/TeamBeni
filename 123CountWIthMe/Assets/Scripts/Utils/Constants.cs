@@ -11,6 +11,7 @@ public static class Constants {
     public static string purplePath = "PurpleItems/";
     public static string redPath = "RedItems/";
     public static string yellowPath = "YellowItems/";
+    public static string secondaryPath = "SecondaryColors/";
     public static string promptPathL = "AudioClips/BLetters/Clip";
     public static string promptPathN = "AudioClips/BNumbers/Clip";
     public static string scubaPath = "ScubaFrames/";
@@ -19,5 +20,6 @@ public static class Constants {
     public static char[] consonants = new char[21] { 'b', 'c', 'd', 'f', 'g',
         'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' };
     public static string[] words = new string[15] {"ball", "bat", "bear", "boat",
-        "car", "cat", "dog", "frog", "hat", "rat", "shoe", "sock", "star", "sun", "tree" };    
+        "car", "cat", "dog", "frog", "hat", "rat", "shoe", "sock", "star", "sun", "tree" };
+    public static string[] secondaryColors = new string[3] { "Purple", "Orange", "Green" };   
 }

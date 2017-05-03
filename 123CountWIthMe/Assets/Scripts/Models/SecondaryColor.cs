@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SecondaryColor {
 
-    public string[] colorMix = new string[2];
+    public string[] colorMix = new string[2];    
 
     public SecondaryColor(string color)
     {
@@ -22,8 +22,6 @@ public class SecondaryColor {
                 colorMix[0] = "Blue";
                 colorMix[1] = "Yellow";
                 break;
-        }
+        }        
     }
-
-	
 }

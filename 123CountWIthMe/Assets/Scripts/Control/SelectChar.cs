@@ -13,7 +13,7 @@ public class SelectChar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
 
         character = gameObject.GetComponent<TextMesh>();
         numbers = GenerateCharacters.numbers;              

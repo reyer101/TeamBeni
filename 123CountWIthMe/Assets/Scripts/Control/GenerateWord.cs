@@ -43,6 +43,7 @@ public class GenerateWord : MonoBehaviour {
         if(rounds > roundsToPlay)
         {
             Debug.Log("Game over");
+            GameUtils.loadWinScreen();
         }
     }
 

@@ -12,18 +12,18 @@ public class GenerateCharacters : MonoBehaviour {
     TextMesh[] answers;
     public bool genNumbers, genLetters;
     public static int[] numbers;
-    public static int currentNumIdx;
-    public static string genPath = "AudioClips/General/Clip";
-    public static string promptPathL = "AudioClips/BLetters/Clip";
-    public static string promptPathN = "AudioClips/BNumbers/Clip";
+    public static int currentNumIdx;    
     int[] shuffledNums;     
     int randSeed;
     public float promptAfterSeconds;
     float timestamp;      
 
 	// Use this for initialization
-	void Start () {        
+	void Start () {
+        currentNumIdx = 0;
+        Debug.Log("Here");       
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
+              
 
         charObjects = GameObject.FindGameObjectsWithTag("GuessChar");
         timestamp = promptAfterSeconds;
@@ -71,12 +71,12 @@ public class GenerateCharacters : MonoBehaviour {
         {
             if(genLetters)
             {
-                beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.promptPathL + "Idle");  //Letters idle prompt
+                beniAudio.clip = (AudioClip)Resources.Load(Constants.promptPathL + "Idle");  //Letters idle prompt
                 beniAudio.Play();
             }
             else if(genNumbers)
             {
-                beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.promptPathN + "Idle");  //Numbers idle prompt
+                beniAudio.clip = (AudioClip)Resources.Load(Constants.promptPathN + "Idle");  //Numbers idle prompt
                 beniAudio.Play();
             }
             Debug.Log("No click after " + promptAfterSeconds + " seconds. " //Beni will prompt user here.

@@ -44,6 +44,7 @@ public class GenerateEquation : MonoBehaviour {
         if (rounds > roundsToPlay)
         {
             Debug.Log("Game over");
+            GameUtils.loadWinScreen();
         }
 
     }

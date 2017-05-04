@@ -63,7 +63,7 @@ public class SelectChar : MonoBehaviour {
                 GenerateCharacters.currentNumIdx += 1;                          //Increment currentNumIdx  
 
                 Debug.Log(character.text + " is correct!");
-                beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Correct");
+                beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Correct");
                 beniAudio.Play();              
 
 
@@ -71,13 +71,14 @@ public class SelectChar : MonoBehaviour {
                 {
                     //At this point the level will be won.
                     Debug.Log("Yay you won!");
+                    GameUtils.loadWinScreen();
 
                 }
 
                 return true;
             }
 
-            beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Oops");
+            beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Oops");
             beniAudio.Play();
             return false;   //Guess is incorrect
 
@@ -97,13 +98,14 @@ public class SelectChar : MonoBehaviour {
             GenerateCharacters.currentNumIdx += 1;                          //Increment currentNumIdx 
 
             Debug.Log(character.text + " is correct!");
-            beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Correct");
+            beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Correct");
             beniAudio.Play();
 
             if (GenerateCharacters.currentNumIdx == 5)
             {
                 //At this point the level will be won.
                 Debug.Log("Yay you won!");
+                GameUtils.loadWinScreen();
 
             }
 
@@ -111,7 +113,7 @@ public class SelectChar : MonoBehaviour {
 
         }
 
-        beniAudio.clip = (AudioClip)Resources.Load(GenerateCharacters.genPath + "Oops");
+        beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Oops");
         beniAudio.Play();
         return false;  //Guess is incorrect
     }

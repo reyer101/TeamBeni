@@ -48,6 +48,7 @@ public class GenerateColorsA : MonoBehaviour {
         if(rounds > roundsToPlay)
         {
             Debug.Log("Game over");
+            GameUtils.loadWinScreen();
         }
     }
 

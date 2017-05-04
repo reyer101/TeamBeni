@@ -24,7 +24,7 @@ public class GenerateColors : MonoBehaviour {
     float timestamp;    
 
     // Use this for initialization
-    IEnumerator Start () {
+    IEnumerator Start () {        
         prevColor = "";   //Initializes previous color to the empty string since the level is just starting.
         beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
         yield return new WaitForSeconds(4.5f);       
@@ -50,7 +50,8 @@ public class GenerateColors : MonoBehaviour {
         if(rounds == roundsToPlay && !levelOver)
         {
             Debug.Log("Level over, " + rounds + " rounds played.");  //Here we would return to a menu of some kind 
-            levelOver = true;           
+            levelOver = true;
+            GameUtils.loadWinScreen();          
         }
 
         if (Input.GetMouseButton(0))

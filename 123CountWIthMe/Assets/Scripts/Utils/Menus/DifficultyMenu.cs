@@ -22,31 +22,31 @@ public class DifficultyMenu : MonoBehaviour {
             case "ColorMenu":
                 if(tag == "Beginner")
                 {
-                    SceneManager.LoadScene("ColorsEasy");
+                    SceneManager.LoadSceneAsync("ColorsEasy");
                 }
                 else
                 {
-                    SceneManager.LoadScene("ColorsAdvanced");
+                    SceneManager.LoadSceneAsync("ColorsAdvanced");
                 }
                 break;
             case "LetterMenu":
                 if (tag == "Beginner")
                 {
-                    SceneManager.LoadScene("LettersEasy");
+                    SceneManager.LoadSceneAsync("LettersEasy");
                 }
                 else
                 {
-                    SceneManager.LoadScene("LettersAdvanced");
+                    SceneManager.LoadSceneAsync("LettersAdvanced");
                 }
                 break;
             case "NumberMenu":
                 if (tag == "Beginner")
                 {
-                    SceneManager.LoadScene("NumbersEasy");
+                    SceneManager.LoadSceneAsync("NumbersEasy");
                 }
                 else
                 {
-                    SceneManager.LoadScene("NumbersAdvanced");
+                    SceneManager.LoadSceneAsync("NumbersAdvanced");
                 }
                 break;
         }

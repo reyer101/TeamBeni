@@ -6,16 +6,18 @@ using UnityEngine.SceneManagement;
 public class DifficultyMenu : MonoBehaviour {
 
     string scene, tag;
-    
+    AudioSource clickSound;    
 
 	// Use this for initialization
 	void Start () {
         scene = SceneManager.GetActiveScene().name;
+        clickSound = gameObject.GetComponent<AudioSource>();
         tag = gameObject.tag;
 		
 	}
     
     void OnMouseDown() {
+        clickSound.Play();
          
         switch(scene)
         {

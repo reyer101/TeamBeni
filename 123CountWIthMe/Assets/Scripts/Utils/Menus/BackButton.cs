@@ -6,15 +6,19 @@ using UnityEngine;
 public class BackButton : MonoBehaviour {
 
     string scene;
+    AudioSource clickSound;
 
-	// Use this for initialization
-	void Start () {
-        scene = SceneManager.GetActiveScene().name;       
+    // Use this for initialization
+    void Start () {
+        scene = SceneManager.GetActiveScene().name;
+        clickSound = gameObject.GetComponent<AudioSource>();     
 		
 	}
 
-    void OnMouseDown() {
+        IEnumerator OnMouseDown() {
 
+        clickSound.Play();
+        yield return new WaitForSeconds(.2f);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
         if(scene.Contains("Menu"))

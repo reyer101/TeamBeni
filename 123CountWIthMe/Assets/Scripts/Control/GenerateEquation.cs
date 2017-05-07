@@ -19,7 +19,7 @@ public class GenerateEquation : MonoBehaviour {
 	void Start () {
 
         rounds = 0;
-        beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         equation = GameObject.FindGameObjectWithTag("AnswerChar1").GetComponent<TextMesh>();
         answerBank = new int[4];
 

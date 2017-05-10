@@ -6,14 +6,15 @@ using UnityEngine;
 public class SelectChar : MonoBehaviour {
 
     AudioSource beniAudio;
-    Renderer rend;
-    TextMesh character;
-    Renderer answer1, answer2, answer3, answer4, answer5;
-    Renderer[] answersRender;
+    BoxCollider collider;
+    Renderer rend;    
+    TextMesh answer1, answer2, answer3, answer4, answer5, character;
+    TextMesh[] answersRender;
     int[] numbers;       
 
 	// Use this for initialization
 	void Start () {
+        collider = GetComponent<BoxCollider>();
         rend = GetComponent<Renderer>();
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
 
@@ -21,17 +22,17 @@ public class SelectChar : MonoBehaviour {
         numbers = GenerateCharacters.numbers;              
 
         answer1 = GameObject.FindGameObjectWithTag("AnswerChar1")
-            .GetComponent<Renderer>();
+            .GetComponent<TextMesh>();
         answer2 = GameObject.FindGameObjectWithTag("AnswerChar2")
-            .GetComponent<Renderer>();
+            .GetComponent<TextMesh>();
         answer3 = GameObject.FindGameObjectWithTag("AnswerChar3")  //Assigns AnswerChar Renderers 
-            .GetComponent<Renderer>();
+            .GetComponent<TextMesh>();
         answer4 = GameObject.FindGameObjectWithTag("AnswerChar4")
-            .GetComponent<Renderer>();
+            .GetComponent<TextMesh>();
         answer5 = GameObject.FindGameObjectWithTag("AnswerChar5")
-            .GetComponent<Renderer>();
+            .GetComponent<TextMesh>();
 
-        answersRender = new Renderer[5] { answer1, answer2, answer3,    //Creates ordered array of AnswerChar Renderers
+        answersRender = new TextMesh[5] { answer1, answer2, answer3,    //Creates ordered array of AnswerChar Renderers
             answer4, answer5 };
     }
 	
@@ -51,18 +52,14 @@ public class SelectChar : MonoBehaviour {
         rend.material.color = Color.white;
     }
 
-    IEnumerator OnMouseDown() {
+    void OnMouseDown() {
         //Debug.Log(character.text + " selected");
         if(validateNums())
         {
-            yield return new WaitForSeconds(4.0f);
+            Destroy(character);
+            Destroy(collider);          
+            
         }
-        else
-        {
-            yield return new WaitForSeconds(4.5f);
-        }
-        
-
     }
 
     bool validateNums() { 
@@ -71,7 +68,7 @@ public class SelectChar : MonoBehaviour {
             if (Int32.Parse(character.text) == numbers[GenerateCharacters.currentNumIdx])
             {  //Answer correct
                //Debug.Log(GenerateNumbers.currentNumIdx);
-                answersRender[GenerateCharacters.currentNumIdx].enabled = true;    //Show the number text if the answer is correct
+                answersRender[GenerateCharacters.currentNumIdx].color = Color.black;    //Show the number text if the answer is correct
                 GenerateCharacters.currentNumIdx += 1;                          //Increment currentNumIdx  
 
                 Debug.Log(character.text + " is correct!");
@@ -106,7 +103,7 @@ public class SelectChar : MonoBehaviour {
         if(character.text == GenerateCharacters.numToString
             (numbers[GenerateCharacters.currentNumIdx], true)) {
 
-            answersRender[GenerateCharacters.currentNumIdx].enabled = true;    //Show the number text if the answer is correct
+            answersRender[GenerateCharacters.currentNumIdx].color = Color.blue;    //Show the number text if the answer is correct
             GenerateCharacters.currentNumIdx += 1;                          //Increment currentNumIdx 
 
             Debug.Log(character.text + " is correct!");

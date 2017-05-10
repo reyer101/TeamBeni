@@ -6,16 +6,31 @@ using UnityEngine.SceneManagement;
 public class DifficultyMenu : MonoBehaviour {
 
     string scene, tag;
-    AudioSource clickSound;    
+    AudioSource clickSound;
+    Renderer rend;
+    Color tint;   
 
 	// Use this for initialization
 	void Start () {
+        rend = GetComponent<Renderer>();
+        tint = new Color();
+        ColorUtility.TryParseHtmlString("#484848FF", out tint);
         scene = SceneManager.GetActiveScene().name;
         clickSound = gameObject.GetComponent<AudioSource>();
         tag = gameObject.tag;
 		
 	}
-    
+
+    void OnMouseEnter()
+    {
+        rend.material.color = tint;
+    }
+
+    void OnMouseExit()
+    {
+        rend.material.color = Color.white;
+    }
+
     void OnMouseDown() {
         clickSound.Play();
          

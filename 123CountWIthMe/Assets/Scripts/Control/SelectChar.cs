@@ -6,6 +6,7 @@ using UnityEngine;
 public class SelectChar : MonoBehaviour {
 
     AudioSource beniAudio;
+    Renderer rend;
     TextMesh character;
     Renderer answer1, answer2, answer3, answer4, answer5;
     Renderer[] answersRender;
@@ -13,6 +14,7 @@ public class SelectChar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        rend = GetComponent<Renderer>();
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
 
         character = gameObject.GetComponent<TextMesh>();
@@ -37,6 +39,16 @@ public class SelectChar : MonoBehaviour {
 	void Update () {
         numbers = GenerateCharacters.numbers;        
 
+    }
+
+    void OnMouseEnter()
+    {
+        rend.material.color = Color.red;
+    }
+    
+    void OnMouseExit()
+    {
+        rend.material.color = Color.white;
     }
 
     IEnumerator OnMouseDown() {

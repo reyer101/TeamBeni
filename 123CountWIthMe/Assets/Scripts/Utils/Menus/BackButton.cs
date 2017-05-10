@@ -7,15 +7,29 @@ public class BackButton : MonoBehaviour {
 
     string scene;
     AudioSource clickSound;
+    SpriteRenderer rend;
+    Color tint;
 
     // Use this for initialization
     void Start () {
+        rend = GetComponent<SpriteRenderer>();
+        tint = new Color();
+        ColorUtility.TryParseHtmlString("#484848FF", out tint);
         scene = SceneManager.GetActiveScene().name;
         clickSound = gameObject.GetComponent<AudioSource>();     
 		
 	}
+    void OnMouseEnter()
+    {
+        rend.color = tint;
+    }
 
-        IEnumerator OnMouseDown() {
+    void OnMouseExit()
+    {
+        rend.color = Color.white;
+    }
+
+    IEnumerator OnMouseDown() {
 
         clickSound.Play();
         yield return new WaitForSeconds(.2f);

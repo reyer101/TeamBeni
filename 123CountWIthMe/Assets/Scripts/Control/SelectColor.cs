@@ -1,14 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SelectColor : MonoBehaviour {
-    AudioSource beniAudio;   
+    AudioSource beniAudio;
+    SpriteRenderer rend; 
     GenerateColors generator;
-    string color, correctColor;       
+    string color, correctColor;
+    Color tint;      
 
 	// Use this for initialization
 	void Start () {
+        tint = new Color();
+        ColorUtility.TryParseHtmlString("#484848FF", out tint);
+        rend = GetComponent<SpriteRenderer>();
         string correctColor = GenerateColors.colorText.text;
         beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
         color = gameObject.tag;
@@ -33,6 +37,16 @@ public class SelectColor : MonoBehaviour {
             beniAudio.clip = (AudioClip) Resources.Load(Constants.promptPath + correctColor);
             beniAudio.Play();       //Loads and plays color prompt after incorrect clip is played
         }
+    }
+
+    void OnMouseEnter()
+    {
+        rend.color = tint;
+    }
+
+    void OnMouseExit()
+    {
+        rend.color = Color.white;
     }
 
     bool validateColor() {        

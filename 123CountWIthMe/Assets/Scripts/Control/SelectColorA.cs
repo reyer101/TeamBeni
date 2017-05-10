@@ -7,12 +7,27 @@ public class SelectColorA : MonoBehaviour {
 
     GenerateColorsA generator;
     string colorText;
+    SpriteRenderer rend;
+    Color tint;
 
 	// Use this for initialization
-	void Start () {        
+	void Start () {
+        tint = new Color();
+        ColorUtility.TryParseHtmlString("#848484FF", out tint);
+        rend = GetComponent<SpriteRenderer>();      
         generator = GameObject.FindGameObjectWithTag("GameController").GetComponent<GenerateColorsA>();
 		
 	}
+
+    void OnMouseEnter()
+    {
+        rend.color = tint;
+    }
+
+    void OnMouseExit()
+    {
+        rend.color = Color.white;
+    }
 
     void OnMouseDown() {
         colorText = gameObject.tag;

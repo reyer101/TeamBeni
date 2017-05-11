@@ -53,7 +53,7 @@ public class BackButton : MonoBehaviour {
         }
         else
         {
-            SceneManager.LoadSceneAsync("MainMenu");
+            SceneManager.LoadSceneAsync("MainMenu");            
         }
 
     }

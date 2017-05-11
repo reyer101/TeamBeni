@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class GameUtils {
 
+    public static string lastLevel = "";
+
     public static void loadWinScreen()
     {
         SceneManager.LoadScene("WinScreen");        

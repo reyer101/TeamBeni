@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine;
 
@@ -47,12 +48,13 @@ public class GenerateColors : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {        
-        if(rounds == roundsToPlay && !levelOver)
+        if(rounds == roundsToPlay)
         {
             Debug.Log("Level over, " + rounds + " rounds played.");  //Here we would return to a menu of some kind 
-            levelOver = true;
+            rounds = 0;
+            GameUtils.lastLevel = SceneManager.GetActiveScene().name;
             GameUtils.loadWinScreen();          
-        }
+        }        
 
         if (Input.GetMouseButton(0))
         {

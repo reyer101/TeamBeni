@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SelectChar : MonoBehaviour {
@@ -80,6 +81,7 @@ public class SelectChar : MonoBehaviour {
                 {
                     //At this point the level will be won.
                     Debug.Log("Yay you won!");
+                    GameUtils.lastLevel = SceneManager.GetActiveScene().name;
                     GameUtils.loadWinScreen();
 
                 }
@@ -114,6 +116,7 @@ public class SelectChar : MonoBehaviour {
             {
                 //At this point the level will be won.
                 Debug.Log("Yay you won!");
+                GameUtils.lastLevel = SceneManager.GetActiveScene().name;
                 GameUtils.loadWinScreen();
 
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GenerateWord : MonoBehaviour {
@@ -43,6 +44,7 @@ public class GenerateWord : MonoBehaviour {
         if(rounds > roundsToPlay)
         {
             Debug.Log("Game over");
+            GameUtils.lastLevel = SceneManager.GetActiveScene().name;
             GameUtils.loadWinScreen();
         }
     }

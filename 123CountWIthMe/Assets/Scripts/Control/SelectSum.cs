@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SelectSum : MonoBehaviour {
 
+    AudioSource beniAudio;
     TextMesh selection;
     Renderer rend;
     GenerateEquation generator;    
@@ -11,6 +12,7 @@ public class SelectSum : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();        
         rend = GetComponent<Renderer>();     
         generator = GameObject.FindGameObjectWithTag("GameController").GetComponent<GenerateEquation>();
         selection = gameObject.GetComponent<TextMesh>();
@@ -36,6 +38,8 @@ public class SelectSum : MonoBehaviour {
         } 
         else
         {
+            beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Oops");
+            beniAudio.Play();
             //Incorrect audio here
         }        
     }

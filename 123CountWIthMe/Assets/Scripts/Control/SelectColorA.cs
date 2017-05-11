@@ -6,12 +6,14 @@ using UnityEngine;
 public class SelectColorA : MonoBehaviour {
 
     GenerateColorsA generator;
+    AudioSource beniAudio;
     string colorText;
     SpriteRenderer rend;
     Color tint;
 
 	// Use this for initialization
 	void Start () {
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         tint = new Color();
         ColorUtility.TryParseHtmlString("#848484FF", out tint);
         rend = GetComponent<SpriteRenderer>();      
@@ -38,12 +40,14 @@ public class SelectColorA : MonoBehaviour {
         }
         else
         {
+            //Chosen color is not one of the two mixing colors
             GenerateColorsA.selectedColors.Clear();
+            beniAudio.clip = (AudioClip) Resources.Load(Constants.genPath + "Oops");
+            beniAudio.Play();
         }
 
         if(GenerateColorsA.selectedColors.Count == 2)
-        {
-            Debug.Log("Yay you won!");
+        {            
             GenerateColorsA.selectedColors.Clear();
             generator.makeColors();
         }

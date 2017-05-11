@@ -12,6 +12,7 @@ public class GenerateColorsA : MonoBehaviour {
     Vector2[] shuffledPositions;
     GameObject[] primaryColors = new GameObject[3];
     GameObject secondaryColor;
+    AudioSource beniAudio;
     public static SecondaryColor color;
     public static string chosenColor;
     string prevColor;    
@@ -19,10 +20,14 @@ public class GenerateColorsA : MonoBehaviour {
     public static HashSet<string> 
         selectedColors = new HashSet<string>();
     public int roundsToPlay;
+    float promptAfterSeconds, timestamp;    
 
-	// Use this for initialization
-	void Start () {        
+    // Use this for initialization
+    void Start () {
+        promptAfterSeconds = 15.0f;
+        timestamp = promptAfterSeconds;
         prevColor = "";
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         primaryPositions = new Vector2[3];
         secondaryPosition = GameObject.FindGameObjectWithTag("Secondary").transform.position;
         secondayRotation = GameObject.FindGameObjectWithTag("Secondary").transform.rotation;
@@ -41,16 +46,24 @@ public class GenerateColorsA : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            makeColors();
-        }
-
         if(rounds > roundsToPlay)
-        {
-            Debug.Log("Game over");
+        {            
             GameUtils.lastLevel = SceneManager.GetActiveScene().name;
             GameUtils.loadWinScreen();
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            timestamp = Time.time + promptAfterSeconds;   //Resets inactivity timer on user click
+        }
+
+        if (Time.time >= timestamp)
+        {
+            
+            beniAudio.clip = (AudioClip) Resources.Load(Constants.aColorsInstruct + chosenColor);  //Playes color prompt
+            beniAudio.Play();           
+            
+            timestamp = Time.time + promptAfterSeconds;
         }
     }
 
@@ -71,7 +84,10 @@ public class GenerateColorsA : MonoBehaviour {
         secondaryColor = (GameObject) Instantiate(Resources.Load(Constants.secondaryPath + chosenColor),
             secondaryPosition, secondayRotation);
 
-        color = new SecondaryColor(chosenColor);        
+        color = new SecondaryColor(chosenColor);
+
+        beniAudio.clip = (AudioClip)Resources.Load(Constants.aColorsPath + chosenColor);
+        beniAudio.Play();   //Play prompt for selected secondary color       
     }
 
     void shuffleColors() {

@@ -15,11 +15,14 @@ public class GenerateWord : MonoBehaviour {
     string[] shuffledWords;
     public static char ans;
     string prevWord;
+    float promptAfterSeconds, timestamp;
 
     // Use this for initialization
     void Start () {
-        prevWord = "";        
-
+        promptAfterSeconds = 15.0f;
+        timestamp = promptAfterSeconds;
+        prevWord = "";
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("GuessChar");
         answers = new char[4];
         wordBlank = GameObject.FindGameObjectWithTag("AnswerChar1").GetComponent<TextMesh>();
@@ -36,16 +39,24 @@ public class GenerateWord : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            makeWord();
-        }
-
         if(rounds > roundsToPlay)
-        {
-            Debug.Log("Game over");
+        {            
             GameUtils.lastLevel = SceneManager.GetActiveScene().name;
             GameUtils.loadWinScreen();
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            timestamp = Time.time + promptAfterSeconds;   //Resets inactivity timer on user click
+        }
+
+        if (Time.time >= timestamp)
+        {
+
+            beniAudio.clip = (AudioClip)Resources.Load(Constants.aLettersInstruct + prevWord);  //Playes color prompt
+            beniAudio.Play();
+
+            timestamp = Time.time + promptAfterSeconds;
         }
     }
 
@@ -60,10 +71,11 @@ public class GenerateWord : MonoBehaviour {
         }
 
         word = shuffledWords[idx].ToCharArray();
+        prevWord = shuffledWords[idx];
         idx = (int) Random.Range(0.0f, word.Length - 1);
         ans = word[idx];
         word[idx] = '_';
-        wordBlank.text = new string(word);
+        wordBlank.text = new string(word);        
         answers[0] = ans;        
         
         for(int i = 1; i < 4; ++i)
@@ -84,6 +96,9 @@ public class GenerateWord : MonoBehaviour {
         {
             answerBank[i].text = shuffledAnswers[i].ToString();
         }
+
+        beniAudio.clip = (AudioClip) Resources.Load(Constants.aLettersInstruct + prevWord);
+        beniAudio.Play();
 
     }
 

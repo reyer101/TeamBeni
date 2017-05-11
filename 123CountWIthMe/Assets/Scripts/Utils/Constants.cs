@@ -14,6 +14,11 @@ public static class Constants {
     public static string secondaryPath = "SecondaryColors/";
     public static string promptPathL = "AudioClips/BLetters/Clip";
     public static string promptPathN = "AudioClips/BNumbers/Clip";
+    public static string aColorsPath = "AudioClips/AColors/Clip";
+    public static string aColorsInstruct = "AudioClips/AColors/Clip";
+    public static string aLettersPath = "AudioClips/ALetters/BeniBear_";
+    public static string aLettersInstruct = "AudioClips/ALetters/BeniBear_Trying";
+    public static string aNumbersPath = "AudioClips/ANumbers/BeniBear_";
     public static string scubaPath = "ScubaFrames/";
 
     public static char[] vowels = new char[5] { 'a', 'e', 'i', 'o', 'u' };

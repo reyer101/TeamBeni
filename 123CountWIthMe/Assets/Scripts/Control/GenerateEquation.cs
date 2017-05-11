@@ -15,10 +15,13 @@ public class GenerateEquation : MonoBehaviour {
     int a, b, rounds;
     public int roundsToPlay;
     public static int ans;
+    float promptAfterSeconds, timestamp;
 
-	// Use this for initialization
-	void Start () {
-
+    // Use this for initialization
+    IEnumerator Start()
+    {
+        promptAfterSeconds = 15.0f;
+        timestamp = promptAfterSeconds;
         rounds = 0;
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         equation = GameObject.FindGameObjectWithTag("AnswerChar1").GetComponent<TextMesh>();
@@ -31,22 +34,33 @@ public class GenerateEquation : MonoBehaviour {
             guesses[i] = objs[i].GetComponent<TextMesh>();
         }
 
+        beniAudio.Play();
+        yield return new WaitForSeconds(3.5f);
+
         makeEquation();     
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            makeEquation();
-        }
-
         if (rounds > roundsToPlay)
-        {
-            Debug.Log("Game over");
+        {            
             GameUtils.lastLevel = SceneManager.GetActiveScene().name;
             GameUtils.loadWinScreen();
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            timestamp = Time.time + promptAfterSeconds;   //Resets inactivity timer on user click
+        }
+
+        if (Time.time >= timestamp)
+        {
+
+            beniAudio.clip = (AudioClip)Resources.Load(Constants.aNumbersPath + "SolveProblem");  
+            beniAudio.Play();
+
+            timestamp = Time.time + promptAfterSeconds;
         }
 
     }
@@ -83,6 +97,23 @@ public class GenerateEquation : MonoBehaviour {
         }
 
         ++rounds;
+
+        StartCoroutine("playAudio");
+    }
+
+    IEnumerator playAudio()
+    {
+        beniAudio.clip = (AudioClip)Resources.Load(Constants.aNumbersPath + a);
+        beniAudio.Play();        
+        yield return new WaitForSeconds(1.0f);
+        beniAudio.clip = (AudioClip)Resources.Load(Constants.aNumbersPath + "Plus");
+        beniAudio.Play();        
+        yield return new WaitForSeconds(1.25f);
+        beniAudio.clip = (AudioClip)Resources.Load(Constants.aNumbersPath + b);
+        beniAudio.Play();        
+        yield return new WaitForSeconds(1.0f);
+        beniAudio.clip = (AudioClip)Resources.Load(Constants.aNumbersPath + "Equals");
+        beniAudio.Play();
 
     }
 }

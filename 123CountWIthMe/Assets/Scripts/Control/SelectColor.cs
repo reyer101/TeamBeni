@@ -6,10 +6,14 @@ public class SelectColor : MonoBehaviour {
     SpriteRenderer rend; 
     GenerateColors generator;
     string color, correctColor;
-    Color tint;      
+    bool rightPlaying, wrongPlaying;
+    Color tint;
+    Coroutine playAudio;      
 
 	// Use this for initialization
 	void Start () {
+        rightPlaying = false;
+        wrongPlaying = false;
         tint = new Color();
         ColorUtility.TryParseHtmlString("#484848FF", out tint);
         rend = GetComponent<SpriteRenderer>();
@@ -24,18 +28,17 @@ public class SelectColor : MonoBehaviour {
         correctColor = GenerateColors.colorText.text;
     }
 
-    IEnumerator OnMouseDown() {
+    void OnMouseDown() {
         if(validateColor())
         {
             ++GenerateColors.rounds;     //Increments rounds when the user makes a correct color choice.
-            yield return new WaitForSeconds(4.0f);  //Gives time for the audio to play before generating next round.            
-            generator.generate();
+            //playAudio = StartCoroutine("playCorrectAudio");      
+            generator.generate();     
         }
         else
         {
-            yield return new WaitForSeconds(4.5f);
-            beniAudio.clip = (AudioClip) Resources.Load(Constants.promptPath + correctColor);
-            beniAudio.Play();       //Loads and plays color prompt after incorrect clip is played
+            playAudio = StartCoroutine("playWrongAudio");
+            
         }
     }
 
@@ -54,15 +57,43 @@ public class SelectColor : MonoBehaviour {
         if (correctColor == color)
         {
             Debug.Log("You are correct!"); //Beni would tell the user that their choice is correct.
-            beniAudio.clip = (AudioClip) Resources.Load(Constants.genPath + "Correct");
-            beniAudio.Play();               //Loads and plays correct clip
+           
              
             return true;           
         }
        
         Debug.Log("Sorry, but this isn't " + correctColor); //Beni would tell the user that their choice is incorrect.
+        
+        return false;
+    }
+
+    IEnumerator playWrongAudio()
+    {
+        wrongPlaying = true;
         beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Oops");
         beniAudio.Play();                    //Loads and plays incorrect clip
-        return false;
+        yield return new WaitForSeconds(4.5f);
+
+        if(!rightPlaying)
+        {
+            beniAudio.clip = (AudioClip)Resources.Load(Constants.promptPath + correctColor);
+            beniAudio.Play();       //Loads and plays color prompt after incorrect clip is played
+        }
+        
+    }
+
+    IEnumerator playCorrectAudio()
+    {
+        if(!rightPlaying)
+        {
+            beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Correct");
+            beniAudio.Play();               //Loads and plays correct clip
+        }
+
+        rightPlaying = true;        
+        
+        yield return new WaitForSeconds(4.0f);  //Gives time for the audio to play before generating next round.
+        generator.generate();
+        rightPlaying = false;
     }
 }

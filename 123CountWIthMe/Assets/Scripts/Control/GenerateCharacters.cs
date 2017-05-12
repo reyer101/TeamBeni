@@ -13,14 +13,14 @@ public class GenerateCharacters : MonoBehaviour {
     public bool genNumbers, genLetters;
     public static int[] numbers;
     public static int currentNumIdx;    
-    int[] shuffledNums;     
+    List<int> shuffledNums;     
     int randSeed;
     public float promptAfterSeconds;
     float timestamp;      
 
 	// Use this for initialization
 	void Start () {
-        currentNumIdx = 0;
+        currentNumIdx = 1;
         Debug.Log("Here");       
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
               
@@ -93,15 +93,18 @@ public class GenerateCharacters : MonoBehaviour {
             (randSeed + 3), (randSeed + 4) };
 
         shuffledNums = numbers.OrderBy(n => System.Guid.NewGuid())  //Shuffles the ordered numbers array
-            .ToArray();
+            .ToList();
+
+        shuffledNums.Remove(randSeed);
 
         for (int i = 0; i < charObjects.Length; ++i) {
             TextMesh num = charObjects[i].GetComponent<TextMesh>();
             num.text = shuffledNums[i].ToString();       //Assigns the number values from the shuffled array to the guess characters
 
             answers[i].text = numbers[i].ToString();     //Assigns the answer TextMeshes the value of each number in ascending order
+        }
 
-        }       
+        answers[4].text = numbers[4].ToString();    
     }
 
     void generateLetters()
@@ -113,16 +116,19 @@ public class GenerateCharacters : MonoBehaviour {
             (randSeed + 3), (randSeed + 4) };
 
         shuffledNums = numbers.OrderBy(n => System.Guid.NewGuid())  //Shuffles the ordered numbers array
-            .ToArray();
+            .ToList();
+
+        shuffledNums.Remove(randSeed);
 
         for (int i = 0; i < charObjects.Length; ++i)
         {
             TextMesh num = charObjects[i].GetComponent<TextMesh>();
+
             num.text = numToString(shuffledNums[i], true);       //Translates number values from shuffled array to letters and assigns to guess chars
 
             answers[i].text = numToString(numbers[i], true);     //Assigns the answer TextMeshes the value of each number in ascending order
-
         }
+        answers[4].text = numToString(numbers[4], true);
     }
 
     public static string numToString(int number, bool isCaps)  //Utility function converting an integer to a string representation

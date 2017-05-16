@@ -25,7 +25,8 @@ public class GenerateColors : MonoBehaviour {
     float timestamp;    
 
     // Use this for initialization
-    IEnumerator Start () {        
+    IEnumerator Start () {
+        GameUtils.safeToPlay = true;
         prevColor = "";   //Initializes previous color to the empty string since the level is just starting.
         beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
         yield return new WaitForSeconds(4.5f);       
@@ -63,9 +64,12 @@ public class GenerateColors : MonoBehaviour {
 
         if (Time.time >= timestamp)
         {
-            Debug.Log("No click after " + promptAfterSeconds + " seconds. "   //Beni will prompt user here.
-                + "Inset Beni voice prompt here.");
-            beniAudio.Play();
+            if(GameUtils.safeToPlay)
+            {
+                Debug.Log("Safe to play");                
+                beniAudio.Play();
+            }            
+            
             timestamp = Time.time + promptAfterSeconds;
         }
     }

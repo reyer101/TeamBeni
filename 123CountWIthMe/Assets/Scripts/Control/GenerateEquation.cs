@@ -20,6 +20,7 @@ public class GenerateEquation : MonoBehaviour {
     // Use this for initialization
     IEnumerator Start()
     {
+        GameUtils.safeToPlay = true;
         promptAfterSeconds = 15.0f;
         timestamp = promptAfterSeconds;
         rounds = 0;
@@ -43,6 +44,10 @@ public class GenerateEquation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(!GameUtils.safeToPlay)
+        {
+            StopCoroutine("playAudio");
+        }
         if (rounds > roundsToPlay)
         {            
             GameUtils.lastLevel = SceneManager.GetActiveScene().name;
@@ -66,6 +71,7 @@ public class GenerateEquation : MonoBehaviour {
     }
 
     public void makeEquation() {
+        ++rounds;
         int temp = 0;
         shuffledNums = nums.OrderBy(n => System.Guid.NewGuid()).ToArray();
         a = shuffledNums[(int)Random.Range(0.0f, 8.0f)];
@@ -96,12 +102,12 @@ public class GenerateEquation : MonoBehaviour {
             guesses[i].text = shuffledAnswers[i].ToString();
         }
 
-        ++rounds;
 
+        StopCoroutine("playAudio");        
         StartCoroutine("playAudio");
     }
 
-    IEnumerator playAudio()
+    public IEnumerator playAudio()
     {
         beniAudio.clip = (AudioClip)Resources.Load(Constants.aNumbersPath + a);
         beniAudio.Play();        

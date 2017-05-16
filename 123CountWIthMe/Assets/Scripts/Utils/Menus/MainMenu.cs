@@ -7,12 +7,27 @@ public class MainMenu : MonoBehaviour {
 
     string tag;
     AudioSource clickSound;
+    SpriteRenderer rend;
+    Color tint;
 
-	// Use this for initialization
-	void Start () {
-        tag = gameObject.tag; tag = gameObject.tag;
+    // Use this for initialization
+    void Start () {
+        rend = GetComponent<SpriteRenderer>();
+        tint = new Color();
+        ColorUtility.TryParseHtmlString("#484848FF", out tint);
+        tag = gameObject.tag;
         clickSound = gameObject.GetComponent<AudioSource>();
 
+    }
+
+    void OnMouseEnter()
+    {
+        rend.color = tint;
+    }
+
+    void OnMouseExit()
+    {
+        rend.color = Color.white;
     }
 
     IEnumerator OnMouseDown()
@@ -31,6 +46,9 @@ public class MainMenu : MonoBehaviour {
                 break;
             case "Number":
                 SceneManager.LoadScene("NumberMenu");
+                break;
+            case "Beni":
+                SceneManager.LoadScene("MainMenu");
                 break;
         }        
 

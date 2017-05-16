@@ -35,7 +35,7 @@ public class BackButton : MonoBehaviour {
         yield return new WaitForSeconds(.2f);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
-        if(scene.Contains("Menu"))
+        if(scene.Contains("Menu") && !scene.Contains("Main"))
         {
             SceneManager.LoadSceneAsync("MainMenu");
         }
@@ -50,6 +50,10 @@ public class BackButton : MonoBehaviour {
         else if(scene.Contains("Colors"))
         {
             SceneManager.LoadSceneAsync("ColorMenu");
+        }
+        else if (scene.Contains("Main"))
+        {
+            SceneManager.LoadSceneAsync("TitleScreen");
         }
         else
         {

@@ -20,8 +20,7 @@ public class GenerateCharacters : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        currentNumIdx = 1;
-        Debug.Log("Here");       
+        currentNumIdx = 1;            
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
               
 
@@ -54,14 +53,7 @@ public class GenerateCharacters : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.G) && genNumbers)
-        {
-            generateNumbers();
-        }
-        else if (Input.GetKeyDown(KeyCode.G) && genLetters) {
-            generateLetters();
-        }
+	void Update () {        
 
         if (Input.GetMouseButton(0)) {
             timestamp = Time.time + promptAfterSeconds;   //Resets inactivity timer on user click

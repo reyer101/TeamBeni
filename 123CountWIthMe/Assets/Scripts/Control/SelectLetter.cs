@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SelectLetter : MonoBehaviour {
@@ -32,8 +33,16 @@ public class SelectLetter : MonoBehaviour {
         if (selection.text == GenerateWord.ans.ToString())
         {
             //Correct audio here  
-            yield return new WaitForSeconds(.3f);                      
-            generator.makeWord();
+            yield return new WaitForSeconds(.2f);  
+            if(!GenerateWord.levelOver)
+            {
+                generator.makeWord();
+            } 
+            else
+            {
+                GameUtils.lastLevel = SceneManager.GetActiveScene().name;
+                GameUtils.loadWinScreen();
+            }          
 
         }
         else

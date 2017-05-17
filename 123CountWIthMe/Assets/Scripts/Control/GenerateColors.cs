@@ -19,13 +19,14 @@ public class GenerateColors : MonoBehaviour {
     int[] shuffledObjNums;
     string chosenColor, prevColor;
     public int roundsToPlay;
-    public static int rounds = 0;
-    bool levelOver = false;
+    public static int rounds = 0;    
     public float promptAfterSeconds;
-    float timestamp;    
+    float timestamp;
+    public static bool levelOver;   
 
     // Use this for initialization
     IEnumerator Start () {
+        levelOver = false;
         GameUtils.safeToPlay = true;
         prevColor = "";   //Initializes previous color to the empty string since the level is just starting.
         beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();
@@ -51,10 +52,7 @@ public class GenerateColors : MonoBehaviour {
 	void Update () {        
         if(rounds == roundsToPlay)
         {
-            Debug.Log("Level over, " + rounds + " rounds played.");  //Here we would return to a menu of some kind 
-            rounds = 0;
-            GameUtils.lastLevel = SceneManager.GetActiveScene().name;
-            GameUtils.loadWinScreen();          
+            levelOver = true;        
         }        
 
         if (Input.GetMouseButton(0))

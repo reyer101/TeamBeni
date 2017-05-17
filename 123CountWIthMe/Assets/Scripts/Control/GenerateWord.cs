@@ -11,20 +11,23 @@ public class GenerateWord : MonoBehaviour {
     TextMesh wordBlank;
     int rounds = 0;
     public int roundsToPlay;
-    char[] word, answers, shuffledAnswers;
+    char[] word, shuffledAnswers;
     string[] shuffledWords;
     public static char ans;
     string prevWord;
     float promptAfterSeconds, timestamp;
+    List<char> answers = new List<char>();
+    public static bool levelOver;
 
     // Use this for initialization
     void Start () {
+        levelOver = false;
         promptAfterSeconds = 15.0f;
         timestamp = promptAfterSeconds;
         prevWord = "";
-        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("GuessChar");
-        answers = new char[4];
+        beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();        
+        
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("GuessChar");        
         wordBlank = GameObject.FindGameObjectWithTag("AnswerChar1").GetComponent<TextMesh>();
 
         for (int i = 0; i < 4; ++i)
@@ -39,10 +42,9 @@ public class GenerateWord : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(rounds > roundsToPlay)
-        {            
-            GameUtils.lastLevel = SceneManager.GetActiveScene().name;
-            GameUtils.loadWinScreen();
+        if(rounds == roundsToPlay)
+        {
+            levelOver = true;            
         }
 
         if (Input.GetMouseButton(0))
@@ -62,6 +64,7 @@ public class GenerateWord : MonoBehaviour {
 
     public void makeWord() {
         ++rounds;
+        answers.Clear();
         shuffledWords = Constants.words.OrderBy(n => System.Guid.NewGuid()).ToArray();
         int idx = (int)Random.Range(0.0f, 14.0f);        
 
@@ -75,18 +78,18 @@ public class GenerateWord : MonoBehaviour {
         idx = (int) Random.Range(0.0f, word.Length - 1);
         ans = word[idx];
         word[idx] = '_';
-        wordBlank.text = new string(word);        
-        answers[0] = ans;        
+        wordBlank.text = new string(word);
+        answers.Insert(0, ans);     
         
         for(int i = 1; i < 4; ++i)
         {
             if(isVowel(ans))      //If the answer is a vowel
             {
-                answers[i] = getRandVowel();                                                          
+                answers.Insert(i, getRandVowel());                                                          
             }           
             else           //Answer is a consonant
             {
-                answers[i] = getRandConst();
+                answers.Insert(i, getRandConst());                
             }
         } 
 
@@ -102,16 +105,17 @@ public class GenerateWord : MonoBehaviour {
 
     }
 
-    char getRandVowel() {
+    char getRandVowel() {        
         
-        int guessIdx = (int)Random.Range(0.0f, 4.0f);
-        while (answers.Contains(Constants.vowels[guessIdx]))  //Will generate a vowel not already in the answers array
-        {            
-            guessIdx = (int)Random.Range(0.0f, 4.0f);
+        foreach(char letter in Constants.vowels)
+        {
+            if(!answers.Contains(letter))
+            {
+                return letter;
+            }
         }
 
-        return Constants.vowels[guessIdx];
-
+        return ' ';
     }
 
     char getRandConst() {

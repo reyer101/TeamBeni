@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour {
     void Start () {
         rend = GetComponent<SpriteRenderer>();
         tint = new Color();
-        ColorUtility.TryParseHtmlString("#484848FF", out tint);
+        ColorUtility.TryParseHtmlString("#929292FF", out tint);
         tag = gameObject.tag;
         clickSound = gameObject.GetComponent<AudioSource>();
 

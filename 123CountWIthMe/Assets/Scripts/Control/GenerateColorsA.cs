@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GenerateColorsA : MonoBehaviour {
@@ -20,10 +19,12 @@ public class GenerateColorsA : MonoBehaviour {
     public static HashSet<string> 
         selectedColors = new HashSet<string>();
     public int roundsToPlay;
-    float promptAfterSeconds, timestamp;    
+    float promptAfterSeconds, timestamp;
+    public static bool levelOver;   
 
     // Use this for initialization
     void Start () {
+        levelOver = false;
         promptAfterSeconds = 15.0f;
         timestamp = promptAfterSeconds;
         prevColor = "";
@@ -46,10 +47,9 @@ public class GenerateColorsA : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(rounds > roundsToPlay)
+        if(rounds == roundsToPlay)
         {            
-            GameUtils.lastLevel = SceneManager.GetActiveScene().name;
-            GameUtils.loadWinScreen();
+            levelOver = true;
         }
 
         if (Input.GetMouseButton(0))

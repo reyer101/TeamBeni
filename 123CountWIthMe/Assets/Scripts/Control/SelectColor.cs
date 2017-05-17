@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SelectColor : MonoBehaviour {
@@ -31,8 +32,16 @@ public class SelectColor : MonoBehaviour {
     void OnMouseDown() {
         if(validateColor())
         {
-            ++GenerateColors.rounds;     //Increments rounds when the user makes a correct color choice.               
-            generator.generate();     
+            if(!GenerateColors.levelOver)
+            {
+                ++GenerateColors.rounds;     //Increments rounds when the user makes a correct color choice.               
+                generator.generate();
+            }
+            else
+            {
+                GameUtils.lastLevel = SceneManager.GetActiveScene().name;
+                GameUtils.loadWinScreen();
+            }               
         }
         else
         {            

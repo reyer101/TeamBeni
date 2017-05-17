@@ -25,8 +25,8 @@ public static class Constants {
     public static char[] vowels = new char[5] { 'a', 'e', 'i', 'o', 'u' };
     public static char[] consonants = new char[21] { 'b', 'c', 'd', 'f', 'g',
         'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' };
-    public static string[] words = new string[15] {"ball", "bat", "bear", "boat",
-        "car", "cat", "dog", "frog", "hat", "rat", "shoe", "sock", "star", "sun", "tree" };
+    public static string[] words = new string[14] {"ball", "bat", "bear", "car", "cat", "dog",
+        "frog", "hat", "rat", "shoe", "sock", "star", "sun", "tree" };
     public static string[] secondaryColors = new string[3] { "Purple", "Orange", "Green" };   
 
 }

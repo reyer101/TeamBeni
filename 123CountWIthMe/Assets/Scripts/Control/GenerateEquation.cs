@@ -16,10 +16,12 @@ public class GenerateEquation : MonoBehaviour {
     public int roundsToPlay;
     public static int ans;
     float promptAfterSeconds, timestamp;
+    public static bool levelOver;
 
     // Use this for initialization
     IEnumerator Start()
     {
+        levelOver = false;
         GameUtils.safeToPlay = true;
         promptAfterSeconds = 15.0f;
         timestamp = promptAfterSeconds;
@@ -48,10 +50,9 @@ public class GenerateEquation : MonoBehaviour {
         {
             StopCoroutine("playAudio");
         }
-        if (rounds > roundsToPlay)
-        {            
-            GameUtils.lastLevel = SceneManager.GetActiveScene().name;
-            GameUtils.loadWinScreen();
+        if (rounds == roundsToPlay)
+        {
+            levelOver = true;           
         }
 
         if (Input.GetMouseButton(0))

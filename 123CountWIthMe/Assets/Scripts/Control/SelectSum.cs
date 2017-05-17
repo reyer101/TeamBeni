@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SelectSum : MonoBehaviour {
@@ -33,10 +34,17 @@ public class SelectSum : MonoBehaviour {
     void OnMouseDown() {
         if (selection.text == GenerateEquation.ans.ToString())
         {
-            //Correct audio here
-            GameUtils.safeToPlay = true;
-            generator.makeEquation();
-
+            if(!GenerateEquation.levelOver)
+            {
+                //Correct audio here
+                GameUtils.safeToPlay = true;
+                generator.makeEquation();
+            }
+            else
+            {
+                GameUtils.lastLevel = SceneManager.GetActiveScene().name;
+                GameUtils.loadWinScreen();
+            }
         } 
         else
         {           

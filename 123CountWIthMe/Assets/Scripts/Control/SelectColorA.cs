@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine;
 
@@ -32,8 +33,7 @@ public class SelectColorA : MonoBehaviour {
     }
 
     void OnMouseDown() {
-        colorText = gameObject.tag;
-        Debug.Log(colorText + " clicked!");
+        colorText = gameObject.tag;        
         if (GenerateColorsA.color.colorMix.Contains(colorText))
         {
             GenerateColorsA.selectedColors.Add(colorText);
@@ -47,9 +47,19 @@ public class SelectColorA : MonoBehaviour {
         }
 
         if(GenerateColorsA.selectedColors.Count == 2)
-        {            
-            GenerateColorsA.selectedColors.Clear();
-            generator.makeColors();
+        { 
+            if(!GenerateColorsA.levelOver)
+            {
+                GenerateColorsA.selectedColors.Clear();
+                generator.makeColors();
+            }
+            else
+            {
+                GenerateColorsA.selectedColors.Clear();
+                GameUtils.lastLevel = SceneManager.GetActiveScene().name;
+                GameUtils.loadWinScreen();
+            }       
+            
         }
     }
 }

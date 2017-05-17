@@ -12,6 +12,7 @@ public class BackgroundSoundPlayer : MonoBehaviour {
     public int imageFrames;
     int totalFrames, animIndex;
     bool bubblesAcive;
+    public bool isLettersLevel;
 
     // Use this for initialization
     void Start () {
@@ -23,31 +24,38 @@ public class BackgroundSoundPlayer : MonoBehaviour {
 	}
 
     void Update() {
-        if (totalFrames % imageFrames == 0 && bubblesAcive)
+        if(isLettersLevel)
         {
-            switchFrame();            
-        }
+            if (totalFrames % imageFrames == 0 && bubblesAcive)
+            {
+                switchFrame();
+            }
 
-        ++totalFrames;
+            ++totalFrames;
+        }        
     }
 	
 	void OnMouseDown()
     {
-        removeBubbles();
-        StopCoroutine("bubbleWait");
-        bubblesAcive = true;
         effect.Play();    //Plays bubble sound effect
-        bubblePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);   //Gets position of the mouse cursor
-        bubblePosition.y += 1.4f;    //Bubble spawn position offset         
 
-        for (int i = 1; i < 9; ++i)
+        if (isLettersLevel)
         {
-            spriteRenderers[i - 1] = ((GameObject)Instantiate(Resources.Load(
-                Constants.bubblePath + i), bubblePosition, bubbleRotation)).
-                GetComponent<SpriteRenderer>();
-        }
+            removeBubbles();
+            StopCoroutine("bubbleWait");
+            bubblesAcive = true;            
+            bubblePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);   //Gets position of the mouse cursor
+            bubblePosition.y += 1.4f;    //Bubble spawn position offset         
 
-        StartCoroutine("bubbleWait");        
+            for (int i = 1; i < 9; ++i)
+            {
+                spriteRenderers[i - 1] = ((GameObject)Instantiate(Resources.Load(
+                    Constants.bubblePath + i), bubblePosition, bubbleRotation)).
+                    GetComponent<SpriteRenderer>();
+            }
+
+            StartCoroutine("bubbleWait");
+        }                
                     
     }
 

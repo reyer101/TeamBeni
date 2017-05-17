@@ -20,6 +20,7 @@ public static class Constants {
     public static string aLettersInstruct = "AudioClips/ALetters/BeniBear_Trying";
     public static string aNumbersPath = "AudioClips/ANumbers/BeniBear_";
     public static string scubaPath = "ScubaFrames/";
+    public static string bubblePath = "BubbleFrames/Bubbles";
 
     public static char[] vowels = new char[5] { 'a', 'e', 'i', 'o', 'u' };
     public static char[] consonants = new char[21] { 'b', 'c', 'd', 'f', 'g',

@@ -14,7 +14,7 @@ public class BackButton : MonoBehaviour {
     void Start () {
         rend = GetComponent<SpriteRenderer>();
         tint = new Color();
-        ColorUtility.TryParseHtmlString("#484848FF", out tint);
+        ColorUtility.TryParseHtmlString("#D5D5D5FF", out tint);
         scene = SceneManager.GetActiveScene().name;
         clickSound = gameObject.GetComponent<AudioSource>();     
 		

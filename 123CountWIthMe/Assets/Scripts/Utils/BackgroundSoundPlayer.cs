@@ -61,9 +61,10 @@ public class BackgroundSoundPlayer : MonoBehaviour {
 
     IEnumerator bubbleWait()
     {
-        yield return new WaitForSeconds(4.25f);
+        yield return new WaitForSeconds(2.00f);
         bubblesAcive = false;
         removeBubbles();
+        effect.Stop();
     }
 
     void switchFrame()

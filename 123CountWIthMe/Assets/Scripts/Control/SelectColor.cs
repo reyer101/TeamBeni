@@ -38,7 +38,7 @@ public class SelectColor : MonoBehaviour {
                 generator.generate();
             }
             else
-            {
+            {                
                 GameUtils.lastLevel = SceneManager.GetActiveScene().name;
                 GameUtils.loadWinScreen();
             }               

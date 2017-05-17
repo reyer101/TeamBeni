@@ -19,13 +19,14 @@ public class GenerateColors : MonoBehaviour {
     int[] shuffledObjNums;
     string chosenColor, prevColor;
     public int roundsToPlay;
-    public static int rounds = 0;    
+    public static int rounds;   
     public float promptAfterSeconds;
     float timestamp;
     public static bool levelOver;   
 
     // Use this for initialization
     IEnumerator Start () {
+        rounds = 0;
         levelOver = false;
         GameUtils.safeToPlay = true;
         prevColor = "";   //Initializes previous color to the empty string since the level is just starting.

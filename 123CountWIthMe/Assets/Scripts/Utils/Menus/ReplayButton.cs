@@ -13,7 +13,7 @@ public class ReplayButton : MonoBehaviour {
 	void Start () {
         rend = GetComponent<SpriteRenderer>();
         tint = new Color();
-        ColorUtility.TryParseHtmlString("#484848FF", out tint);
+        ColorUtility.TryParseHtmlString("#D5D5D5FF", out tint);
         clickSound = gameObject.GetComponent<AudioSource>();
     }
 

@@ -15,7 +15,7 @@ public class SelectColor : MonoBehaviour {
 	void Start () {
         GameUtils.safeToPlay = true;        
         tint = new Color();
-        ColorUtility.TryParseHtmlString("#929292FF", out tint);
+        ColorUtility.TryParseHtmlString("#D5D5D5FF", out tint);
         rend = GetComponent<SpriteRenderer>();
         string correctColor = GenerateColors.colorText.text;
         beniAudio = GameObject.FindGameObjectWithTag("Beni").GetComponent<AudioSource>();

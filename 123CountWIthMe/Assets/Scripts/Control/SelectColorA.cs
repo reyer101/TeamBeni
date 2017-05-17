@@ -16,7 +16,7 @@ public class SelectColorA : MonoBehaviour {
 	void Start () {
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         tint = new Color();
-        ColorUtility.TryParseHtmlString("#929292FF", out tint);
+        ColorUtility.TryParseHtmlString("#D5D5D5FF", out tint);
         rend = GetComponent<SpriteRenderer>();      
         generator = GameObject.FindGameObjectWithTag("GameController").GetComponent<GenerateColorsA>();
 		

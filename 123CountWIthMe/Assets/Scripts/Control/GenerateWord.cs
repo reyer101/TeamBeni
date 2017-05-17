@@ -66,7 +66,7 @@ public class GenerateWord : MonoBehaviour {
         int idx = (int)Random.Range(0.0f, 14.0f);        
 
         while (shuffledWords[idx] == prevWord)
-        {
+        {            
             idx = (int)Random.Range(0.0f, 14.0f);
         }
 
@@ -97,7 +97,7 @@ public class GenerateWord : MonoBehaviour {
             answerBank[i].text = shuffledAnswers[i].ToString();
         }
 
-        beniAudio.clip = (AudioClip) Resources.Load(Constants.aLettersInstruct + prevWord);
+        beniAudio.clip = (AudioClip) Resources.Load(Constants.aLettersInstruct + prevWord.Trim());        
         beniAudio.Play();
 
     }
@@ -106,7 +106,7 @@ public class GenerateWord : MonoBehaviour {
         
         int guessIdx = (int)Random.Range(0.0f, 4.0f);
         while (answers.Contains(Constants.vowels[guessIdx]))  //Will generate a vowel not already in the answers array
-        {
+        {            
             guessIdx = (int)Random.Range(0.0f, 4.0f);
         }
 

@@ -38,6 +38,8 @@ public class SelectLetter : MonoBehaviour {
         }
         else
         {
+            beniAudio.clip = (AudioClip) Resources.Load(Constants.genPath + "Oops");
+            beniAudio.Play();
             //Incorrect audio here
         }
     }

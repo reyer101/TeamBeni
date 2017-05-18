@@ -20,8 +20,7 @@ public class SelectColorA : MonoBehaviour {
         tint = new Color();
         ColorUtility.TryParseHtmlString("#D5D5D5FF", out tint);
         rend = GetComponent<SpriteRenderer>();      
-        generator = GameObject.FindGameObjectWithTag("GameController").GetComponent<GenerateColorsA>();
-		
+        generator = GameObject.FindGameObjectWithTag("GameController").GetComponent<GenerateColorsA>();		
 	}
 
     void Update()
@@ -30,7 +29,6 @@ public class SelectColorA : MonoBehaviour {
         {
             rend.color = Color.white;
         }
-
     }
 
     void OnMouseEnter()
@@ -46,7 +44,7 @@ public class SelectColorA : MonoBehaviour {
         }       
     }
 
-    void OnMouseDown() {
+    IEnumerator OnMouseDown() {
         clicked = true;
         colorText = gameObject.tag;        
         if (GenerateColorsA.color.colorMix.Contains(colorText))
@@ -56,9 +54,12 @@ public class SelectColorA : MonoBehaviour {
         else
         {
             //Chosen color is not one of the two mixing colors
+            GenerateColorsA.colorsDirty = true;
             GenerateColorsA.selectedColors.Clear();
             beniAudio.clip = (AudioClip) Resources.Load(Constants.genPath + "Oops");
             beniAudio.Play();
+            yield return new WaitForSeconds(.2f);
+            GenerateColorsA.colorsDirty = false;
         }
 
         if(GenerateColorsA.selectedColors.Count == 2)
@@ -68,15 +69,16 @@ public class SelectColorA : MonoBehaviour {
             if (!GenerateColorsA.levelOver)
             {               
                 GenerateColorsA.selectedColors.Clear();                
-                generator.makeColors();                
+                generator.makeColors();
+                yield return new WaitForSeconds(.2f);
+                GenerateColorsA.colorsDirty = false;             
             }
             else
             {
                 GenerateColorsA.selectedColors.Clear();
                 GameUtils.lastLevel = SceneManager.GetActiveScene().name;
                 GameUtils.loadWinScreen();
-            }       
-            
+            }            
         }
     }
 }

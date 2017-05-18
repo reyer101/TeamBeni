@@ -88,8 +88,7 @@ public class GenerateColorsA : MonoBehaviour {
         color = new SecondaryColor(chosenColor);
 
         beniAudio.clip = (AudioClip)Resources.Load(Constants.aColorsPath + chosenColor);
-        beniAudio.Play();   //Play prompt for selected secondary color
-        GenerateColorsA.colorsDirty = false;
+        beniAudio.Play();   //Play prompt for selected secondary color             
     }
 
     void shuffleColors() {

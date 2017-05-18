@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Control\SelectColorA.cs" />
     <Compile Include="Assets\Scripts\Control\SelectLetter.cs" />
     <Compile Include="Assets\Scripts\Control\SelectSum.cs" />
+    <Compile Include="Assets\Scripts\Models\MenuPlayer.cs" />
     <Compile Include="Assets\Scripts\Models\SecondaryColor.cs" />
     <Compile Include="Assets\Scripts\Utils\BackgroundSoundPlayer.cs" />
     <Compile Include="Assets\Scripts\Utils\BeniMover.cs" />

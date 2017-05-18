@@ -27,7 +27,7 @@ public class GenerateColorsA : MonoBehaviour {
         colorsDirty = false;
         levelOver = false;
         promptAfterSeconds = 15.0f;
-        timestamp = promptAfterSeconds;
+        timestamp = promptAfterSeconds + Time.time;
         prevColor = "";
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         primaryPositions = new Vector2[3];

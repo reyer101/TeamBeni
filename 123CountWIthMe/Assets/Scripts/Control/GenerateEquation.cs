@@ -24,7 +24,7 @@ public class GenerateEquation : MonoBehaviour {
         levelOver = false;
         GameUtils.safeToPlay = true;
         promptAfterSeconds = 15.0f;
-        timestamp = promptAfterSeconds;
+        timestamp = promptAfterSeconds + Time.time;
         rounds = 0;
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         equation = GameObject.FindGameObjectWithTag("AnswerChar1").GetComponent<TextMesh>();

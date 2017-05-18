@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GenerateCharacters : MonoBehaviour {
@@ -19,13 +20,14 @@ public class GenerateCharacters : MonoBehaviour {
     float timestamp;      
 
 	// Use this for initialization
-	void Start () {
+	void Start () {                   
         currentNumIdx = 1;            
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
               
 
         charObjects = GameObject.FindGameObjectsWithTag("GuessChar");
-        timestamp = promptAfterSeconds;
+        timestamp = promptAfterSeconds + Time.time;
+
 
         answer1 = GameObject.FindGameObjectWithTag("AnswerChar1")
             .GetComponent<TextMesh>();
@@ -54,7 +56,6 @@ public class GenerateCharacters : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {        
-
         if (Input.GetMouseButton(0)) {
             timestamp = Time.time + promptAfterSeconds;   //Resets inactivity timer on user click
         }

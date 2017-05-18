@@ -23,7 +23,7 @@ public class GenerateWord : MonoBehaviour {
     void Start () {
         levelOver = false;
         promptAfterSeconds = 15.0f;
-        timestamp = promptAfterSeconds;
+        timestamp = promptAfterSeconds + Time.time;
         prevWord = "";
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();        
         

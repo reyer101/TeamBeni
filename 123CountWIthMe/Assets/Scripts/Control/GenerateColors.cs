@@ -34,7 +34,7 @@ public class GenerateColors : MonoBehaviour {
         yield return new WaitForSeconds(4.5f);       
         beniAudio.Play();        
 
-        timestamp = promptAfterSeconds;
+        timestamp = promptAfterSeconds + Time.time;
         colorText = GameObject.FindGameObjectWithTag("GuessChar").GetComponent<TextMesh>(); //Gets reference to color TextMesh
 
         colorRotation = GameObject.FindGameObjectWithTag("Blue").transform.rotation;  //Gets default rotation for colored objects

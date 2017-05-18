@@ -77,7 +77,7 @@ public class SelectColor : MonoBehaviour {
     {       
         beniAudio.clip = (AudioClip)Resources.Load(Constants.genPath + "Oops");
         beniAudio.Play();                    //Loads and plays incorrect clip
-        yield return new WaitForSeconds(4.5f);       
+        yield return new WaitForSeconds(6.8f);       
         beniAudio.clip = (AudioClip)Resources.Load(Constants.promptPath + correctColor);
         beniAudio.Play();       //Loads and plays color prompt after incorrect clip is played        
     }

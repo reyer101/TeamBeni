@@ -11,9 +11,11 @@ public class SelectColorA : MonoBehaviour {
     string colorText;
     SpriteRenderer rend;
     Color tint;
+    bool clicked;
 
 	// Use this for initialization
 	void Start () {
+        clicked = false;
         beniAudio = GameObject.FindGameObjectWithTag("BeniAudio").GetComponent<AudioSource>();
         tint = new Color();
         ColorUtility.TryParseHtmlString("#D5D5D5FF", out tint);
@@ -22,6 +24,15 @@ public class SelectColorA : MonoBehaviour {
 		
 	}
 
+    void Update()
+    {
+        if(GenerateColorsA.colorsDirty)
+        {
+            rend.color = Color.white;
+        }
+
+    }
+
     void OnMouseEnter()
     {
         rend.color = tint;
@@ -29,10 +40,14 @@ public class SelectColorA : MonoBehaviour {
 
     void OnMouseExit()
     {
-        rend.color = Color.white;
+        if(!clicked)
+        {
+            rend.color = Color.white;
+        }       
     }
 
     void OnMouseDown() {
+        clicked = true;
         colorText = gameObject.tag;        
         if (GenerateColorsA.color.colorMix.Contains(colorText))
         {
@@ -47,11 +62,13 @@ public class SelectColorA : MonoBehaviour {
         }
 
         if(GenerateColorsA.selectedColors.Count == 2)
-        { 
-            if(!GenerateColorsA.levelOver)
-            {
-                GenerateColorsA.selectedColors.Clear();
-                generator.makeColors();
+        {
+            GenerateColorsA.colorsDirty = true;
+            clicked = false;                        
+            if (!GenerateColorsA.levelOver)
+            {               
+                GenerateColorsA.selectedColors.Clear();                
+                generator.makeColors();                
             }
             else
             {

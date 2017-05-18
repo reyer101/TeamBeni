@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Levels/ColorsEasy.unity
+- path: Assets/Scenes/Levels/ColorsAdvanced.unity
   isLoaded: 1
   isActive: 1

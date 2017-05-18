@@ -20,10 +20,11 @@ public class GenerateColorsA : MonoBehaviour {
         selectedColors = new HashSet<string>();
     public int roundsToPlay;
     float promptAfterSeconds, timestamp;
-    public static bool levelOver;   
+    public static bool levelOver, colorsDirty;   
 
     // Use this for initialization
     void Start () {
+        colorsDirty = false;
         levelOver = false;
         promptAfterSeconds = 15.0f;
         timestamp = promptAfterSeconds;
@@ -67,7 +68,7 @@ public class GenerateColorsA : MonoBehaviour {
         }
     }
 
-    public void makeColors() {
+    public void makeColors() {        
         ++rounds;
         deleteSecondary();
         shuffleColors();
@@ -87,7 +88,8 @@ public class GenerateColorsA : MonoBehaviour {
         color = new SecondaryColor(chosenColor);
 
         beniAudio.clip = (AudioClip)Resources.Load(Constants.aColorsPath + chosenColor);
-        beniAudio.Play();   //Play prompt for selected secondary color       
+        beniAudio.Play();   //Play prompt for selected secondary color
+        GenerateColorsA.colorsDirty = false;
     }
 
     void shuffleColors() {
